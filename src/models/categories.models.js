@@ -21,6 +21,4 @@ const Categories = db.define('categories', {
         timestamps: false
 })
 
-module.exports = {
-    Categories
-}
+module.exports = Categories

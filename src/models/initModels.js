@@ -36,6 +36,25 @@ const initModels = () => {
     Ingredients.hasMany(UsersIngredients)
     UsersIngredients.belongsTo(Ingredients)
 
+    //* Recipes M:1 Categories
+    Categories.hasMany(Recipes)
+    Recipes.belongsTo(Categories)
+
+    //* Ingredients M:1 Types
+    Types.hasMany(Ingredients)
+    Ingredients.belongsTo(Types)
+     
+    //* Recipes 1:M RecipesIngredients
+    Recipes.hasMany(RecipesIngredients)
+    RecipesIngredients.belongsTo(Recipes)
+
+    //* Ingredients 1:M RecipesIngredients
+    Ingredients.hasMany(RecipesIngredients)
+    RecipesIngredients.belongsTo(Ingredients)
+
+    //* Recipes 1:M Instructions
+    Recipes.hasMany(Instructions)
+    Instructions.belongsTo(Recipes)
 }
 
 module.exports = initModels

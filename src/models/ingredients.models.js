@@ -36,6 +36,4 @@ const Ingredients = db.define('ingredients', {
         timestamps: false
 })
 
-module.exports = {
-    Ingredients
-}
+module.exports = Ingredients
