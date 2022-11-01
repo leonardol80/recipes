@@ -1,5 +1,6 @@
 //? Dependencies
 const express = require('express');
+const cors = require('cors')
 const db = require('./utils/database')
 
 //? Files
@@ -9,6 +10,7 @@ const userRouter = require('./users/users.router')
 const authRouter = require('./auth/auth.router')
 const categoryRouter = require('./categories/categories.router')
 const typesRouter = require('./types/types.router')
+const recipesRouter = require('./recipes/recipes.router')
 
 
 const initModels = require('./models/initModels')
@@ -17,6 +19,8 @@ const initModels = require('./models/initModels')
 const app = express()
 
 app.use(express.json())
+
+app.use(cors())
 
 db.authenticate()
 .then( ()=>{
@@ -50,6 +54,7 @@ app.use('/api/v1/users', userRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/categories',categoryRouter)
 app.use('/api/v1/types',typesRouter)
+app.use('/api/v1/recipes',recipesRouter)
 
 app.listen(port, () => {
     console.log(`Server started at port ${port}`)
