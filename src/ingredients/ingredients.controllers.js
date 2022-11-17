@@ -1,4 +1,7 @@
+const uuid = require('uuid')
+
 const Ingredients = require('../models/ingredients.models')
+const UsersIngredients = require('../models/users_ingredients.models')
 
 //? Ver todas las categorias
 //? Ver una categoria en especifico
@@ -6,7 +9,7 @@ const Ingredients = require('../models/ingredients.models')
 //? Eliminar categoria
 
 const getAllIngredients = async () => {
-    const data = await Categories.findAll()
+    const data = await Ingredients.findAll()
     return data
 }
 
@@ -35,9 +38,20 @@ const deleteIngredients = async (id) => {
     return data
 }
 
+const addIngredientsToUser= async(data) =>{
+        const response = await UsersIngredients.create({
+            id: uuid.v4(),
+            amount: data.amount,
+            userId: data.userId,
+            ingredientId: data.ingredientId
+        })
+        return response
+}
+
 module.exports = {
     getAllIngredients,
     getIngredientsById,
     createIngredients,
-    deleteIngredients
+    deleteIngredients,
+    addIngredientsToUser
 }

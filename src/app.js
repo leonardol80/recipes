@@ -2,15 +2,20 @@
 const express = require('express');
 const cors = require('cors')
 const db = require('./utils/database')
+const swaggerUi = require('swagger-ui-express')
 
 //? Files
 const {port} = require('./config');
+const swaggerDoc = require('../swagger.json')
+
 //* Routes
 const userRouter = require('./users/users.router')
 const authRouter = require('./auth/auth.router')
 const categoryRouter = require('./categories/categories.router')
 const typesRouter = require('./types/types.router')
 const recipesRouter = require('./recipes/recipes.router')
+const ingredientsRouter = require('./ingredients/ingredients.router')
+
 
 
 const initModels = require('./models/initModels')
@@ -55,6 +60,8 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/categories',categoryRouter)
 app.use('/api/v1/types',typesRouter)
 app.use('/api/v1/recipes',recipesRouter)
+app.use('/api/v1/ingredients',ingredientsRouter)
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 app.listen(port, () => {
     console.log(`Server started at port ${port}`)

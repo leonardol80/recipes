@@ -14,13 +14,22 @@ router.route('/')
     .post(
         passport.authenticate('jwt',{session:false}),
         adminValidate,
-        categoryServices.postCategory) //TODO hacerla protegida por administrador
+        ingredientsServices.postIngredients) //TODO hacerla protegida por administrador
 
 router.route('/:id')
     .get(ingredientsServices.getIngredientsById)
+    .patch(
+        passport.authenticate('jwt',{session:false}),
+        adminValidate,
+        ingredientsServices.patchIngredient
+    )
     .delete(
         passport.authenticate('jwt',{session:false}),
         adminValidate,
         ingredientsServices.deleteIngredients) //TODO hacerla protegida por administrador
 
+        router.post('/:ingredients_id/add_to_user',
+        passport.authenticate('jwt',{session:false}),
+        ingredientsServices.postIngredientToUser
+        )
 module.exports = router

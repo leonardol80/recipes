@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const passport = require('passport')  //* Para rutas protegidas
+const {getUserRecipes} = require('../recipes/recipes.services')
+
 
 const userServices = require('./users.services')
 require('../middlewares/auth.middleware')(passport) //* Para rutas protegidas
@@ -25,12 +27,16 @@ router.get('/',userServices.getAllUsers)  // No protegida
 //! router.delete('/:id')
 //! /api/v1/users/
 
+//? Ruta de informacion propia del usuario logeado /me
 //?Se pone antes para que no quede como un parametro dentro de la ruta
 //?Se usan los mismos controladores
 router.route('/me')   //?No requiere un id, solo el propio dueño de cta
 .get(passport.authenticate('jwt',{session:false}),userServices.getMyUser)
 .patch(passport.authenticate('jwt',{session:false}),userServices.pathMyUser)
 .delete(passport.authenticate('jwt',{session:false}),userServices.deleteMyUser)
+
+// Agregar la ruta para obtener mis recetas /api/v1/users/me/recipes
+router.get('/me/my_recipes',passport.authenticate('jwt',{session:false}),getUserRecipes)
 
 //? /aoi/v1/users/:id
 router.route('/:id')

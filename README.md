@@ -24,3 +24,6 @@ Orden
 6. controladores
 7. servicios
 8. rutas
+
+/utils/seeders
+Ejecutar users, types, categories, recipes, ingredients
